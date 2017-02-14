@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+        
+        <title>Chicago Crimes Search App</title>
+        <style>
+        
+        body {
+            background-color:white;
+        }
+            p, h1 {font-family: 'merriweather';}
+            p {font-size:1.5em;line-height:1.5em; margin-left: 24px;}
+            pre {font-size: 2em;}
+            
+             #form {
+              background-color:lightblue; 
+                border: 1px solid black; 
+                border-radius: 4px;
+                min-height:75px;
+                padding:10px;
+                color:black;
+            }
+        br{
+            color:white;
+        }
+        
+    .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    
+    }
+    
+    #btnSearch {
+    background-color: white; 
+    color: black; 
+    border: 2px solid black;
+}
+
+#btnSearch:hover {
+    background-color: gray;
+    color: white;
+}
+        
+        .card-content{
+            border: 2px solid black;
+            padding:10px;
+        }
+        
+        #results{
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        a:link, a:visited {
+    background-color: blue;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+        a:hover, a:active {
+        background-color: lightblue;
+        
+}
+
+        #header{
+            background-color:white ;
+            border: 1px solid black; 
+             
+                min-height:75px;
+                padding:10px;
+                color:black;
+        }
+        /* basic stylings ------------------------------------------ */
+body                 { background:url(http://scotch.io/wp-content/uploads/2014/07/61.jpg); }
+.container      { 
+  font-family:'Roboto', sans-serif;
+  width:600px; 
+  margin:30px auto 0; 
+  display:block; 
+  background:#FFF;
+  padding:10px 50px 50px;
+}
+h2       { 
+  text-align:center; 
+  margin-bottom:50px; 
+}
+h2 small { 
+  font-weight:normal; 
+  color:#888; 
+  display:block; 
+}
+.footer     { text-align:center; }
+.footer a  { color:#53B2C8; }
+
+/* form starting stylings ------------------------------- */
+.group            { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+input               {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus         { outline:none; }
+
+/* LABEL ======================================= */
+label                {
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label        {
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+
+/* BOTTOM BARS ================================= */
+.bar    { position:relative; display:block; width:300px; }
+.bar:before, .bar:after     {
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#5264AE; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+ #drop_down{
+     font-size:12px;
+     text-align:left;
+     color:#5264AE;
+ }
+    </style>
+    </head>
+    <body>
+        <div id="header">
+    <h1>Chicago 2016 Crime Search</h1>
+    </div>
+    <!-- div for instructions and form -->
+    <div id="form">
+        <p>
+            Enter a block address to view the crimes that have happened in that area.<br>
+            Use 048XX W HURON ST- for testing.<br> 
+            <br>
+            
+            Address format: Put a zero followed by the first two digits of your address and two X's. Then put the direction (N, S, E, or W) and then your street name and street suffix.
+            <br><br>
+            Ex.) 0--XX (Direction-N,E,S,W) (Street Name) (Street Suffix)<br><br>
+                2501 W Addison St = 025XX W ADDISON ST
+        </p>
+        <p id="drop_down"class="bar">Choose a Primary Crime Type to Search By:</p>
+        <select id="crimeType">
+            <option value="all">All</option>
+  <option value="theft">Theft</option>
+  <option value="narcotics">Narcotics</option>
+  <option value="battery">Battery</option>
+  <option value="robbery">Robbery</option>
+  <option value="criminal_trespass">Criminal Trespass</option>
+  <option value="deceptive_practice">Deceptive Practice</option>
+  <option value="criminal_damage">Criminal Damage</option>
+</select>
+<br><br><br><br>
+
+         <form>
+         <div class="group">      
+      <input type="text" id= "txtAddress" size="20" maxlength="20" style="text-transform:uppercase" placeholder= "Enter a Block Address">
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Enter Block Address</label>
+      <button type="button" class= "button" id="btnSearch" >Search</button>
+        </form>
+        
+    </div>
+    
+    </div>
+    
+    <!-- a div to store the results -->
+    <div id="results">
+        
+        
+        
+    </div>
+    <p id="author">
+        
+        
+        By: Sebastian Caid and Stevan Kamatovic
+    </p>
+    <p>
+            
+           This app gets data from the City of Chicago Crimes Data Portal and loops through it based on the search term that is entered
+        into the input box and the value of the value that is chosen in the select box. The information is then appended to the body.
+            
+    </p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    
+    /* global $ */
+       var url;
+       var data;
+       $(function() {
+            
+            
+            var baseURL = 'https://data.cityofchicago.org/resource/kf95-mnd6.json';
+ 
+            $("#btnSearch").on("click", function() { 
+              // console.log($("#txtAddress").val());
+               
+               $("#results").html("");
+               
+              // var searchTerm = $("#txtAddress").val();
+               var searchUrl = baseURL; //+ "?block=" + searchTerm;//+"&primary_type="+search;
+               //var search = $("#crimeType").val();
+             
+                if ($("#crimeType").val() !== "all" && $("#txtAddress").val() !== "") {
+                    searchUrl += "?block=" + $("#txtAddress").val() + "&primary_type=" + $("#crimeType").val();
+                } else if ($("#crimeType").val() === "all" && $("#txtAddress").val() !== "") {
+                    searchUrl += "?block=" + $("#txtAddress").val();
+                } else if ($("#crimeType").val() !== "all" && $("#txtAddress").val() === "") {
+                    searchUrl += "?primary_type=" + $("#crimeType").val();
+                }
+                url = searchUrl;
+                console.log(url);
+    
+               
+             $.getJSON(searchUrl)
+                .done(function(data) {
+                    $("#results").append("Number of records returned: " + data.length + "<br><hr>");
+                    $.each(data, function(index,value){
+                        data=value;
+                         var html= "<div class='col s12 m7'>"
+                            + "<div class='card horizontal'>"
+                            + "<div class='card-stacked'>"
+                            + "<div class='card-content'>"
+                            + "<p>" + "</p>"
+                            +"<h2>"
+                            + value.primary_type
+                            +"</h2>"
+                            + "<b>" + "Date: " + "</b>" + value.date
+                            +"<br>"+ "<b>" + "Location: " + "</b>" + value.location_description
+                            +"<br>" + "<b>" + "Description: " + "</b>" + value.description
+                            + "<br>" + "<hr>"
+                            + "<a target='"+"_blank"+"'href= https://www.google.com/maps/place/'"+ value.latitude + "," + value.longitude +"'>View on Google Maps</a>"
+                            + "</div>"
+                            + "</div>"
+                            + "</div>"
+                            + "</div>";
+                        $("#results").append(html);
+                    });
+                    
+                });
+            });
+       });  
+       
+    </script>
+    </body>
+</html>
