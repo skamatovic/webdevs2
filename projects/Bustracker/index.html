@@ -24,6 +24,7 @@
 
 
 
+<button id="prdBtn"type="button">Click for Bus Arrival Predictions</button>
 
 
 
@@ -44,7 +45,7 @@
           
           var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
           
-          
+          $("#prdBtn").click(function(){
           $.ajax({
               url: apiPassThruUrl,
               dataType: "json",
@@ -60,11 +61,12 @@
               $("body").append("<h1>Bus Routes</h1>");
              
               $.each(data["bustime-response"]["prd"], function(i,v) {
-                  $("body").append("Route #" + v.rt  + ", " + v.stpid + ", "+v.prdctdn+" to arrive"+"<br><hr>");
+                  $("body").append("Route #" + v.rt  + ", " + v.stpid + ", "+v.prdctdn+" minutes to arrive"+"<br><hr>");
                 
               });
 
             });
+          });
         });
             
     
