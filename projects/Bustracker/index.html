@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lane Tech Bus Tracker App</title>
+        <style>
+            #header{
+                padding:10px;
+                border:1px solid black;
+                background-color:lightblue;
+                margin-top:none;
+                width:100%
+            }
+            
+            
+            
+        </style>
+        
+    </head>
+    <body>
+<header id="header">Lane Tech Buses Tracker</header>
+<p>Click the Button to See the the Estimated Arrival times of the Western/Addison Buses</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    /* global $ */
+    
+    
+    $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "DYEHKRgSZz898vgsbvEzQRfPU",
+                      "rt" : "152,49",
+                      "stpid" : "12527,12569,8147,8195",
+                      "format":"json"}
+                      
+            }).done (function (data) {
+              console.log(data);
+              $("body").append("<h1>Bus Routes</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("body").append("Route #" + v.rt  + ", " + v.stpid + ", "+v.prdctdn+" to arrive"+"<br><hr>");
+                
+              });
+
+            });
+        });
+            
+    
+    
+    
+    
+</script>
+
+
+
+
+
+
+
+    </body>
+</html>
