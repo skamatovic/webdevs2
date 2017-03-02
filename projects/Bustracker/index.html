@@ -2,6 +2,12 @@
 <html>
     <head>
         <title>Lane Tech Bus Tracker App</title>
+    <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <style>
             #header{
                 padding:10px;
@@ -12,19 +18,19 @@
             }
             
             
-            
         </style>
         
     </head>
     <body>
 <header id="header">Lane Tech Buses Tracker</header>
 <p>Click the Button to See the the Estimated Arrival times of the Western/Addison Buses</p>
-
-
-
-
-
 <button id="prdBtn"type="button">Click for Bus Arrival Predictions</button>
+
+<div class="row">
+  <div class="col-md-4" id="r152"><h2>Addison</h2></div>
+  <div class="col-md-4" id="r49"><h2>Western</h2></div>
+  <div class="col-md-4" id="rX49"><h2>Western Xpress</h2></div>
+</div>
 
 
 
@@ -52,16 +58,16 @@
               method: 'GET',
               data: {"apiEndpoint": apiEndpoint,
                       "key" : "DYEHKRgSZz898vgsbvEzQRfPU",
-                      "rt" : "152,49",
+                      "rt" : "152,49,X49",
                       "stpid" : "12527,12569,8147,8195",
                       "format":"json"}
                       
             }).done (function (data) {
               console.log(data);
-              $("body").append("<h1>Bus Routes</h1>");
+              //$("body").append("<h1>Bus Routes</h1>");
              
               $.each(data["bustime-response"]["prd"], function(i,v) {
-                  $("body").append("Route #" + v.rt  + ", " + v.stpid + ", "+v.prdctdn+" minutes to arrive"+"<br><hr>");
+                  $("#r"+v.rt).append("Route #" + v.rt +", "+ v.rtdir + " to "+v.des +", " + v.stpid + ", "+v.prdctdn+" minutes to arrive"+"<br><hr>");
                 
               });
 
