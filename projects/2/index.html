@@ -16,24 +16,40 @@
   <meta name="msapplication-TileImage" content="ctalogo.gif">
   <meta name="msapplication-TileColor" content="#2F3BA2">
         <style>
-            #header{
-                padding:10px;
-                border:1px solid black;
-                background-color:green;
-                margin-top:none;
-                width:100%
-                
-            }
+             #header{
+      color:#FFD700;
+      text-align:center;
+      padding-top:10px;
+      padding-bottom:10px;
+        background-color:#21421e;
+    }
             div{
-                background-color:gold;
+                background-color:white;
             }
+            footer{
+      background-color:#FFD700;
+      height:75px;
+      width:100%;
+    }
+    p{
+         background-color:#FFD700;
+      
+    }
+
+    
         </style>
         
     </head>
     <body>
-<header id="header"><h1>Lane Tech Buses Tracker</h1></header>
-<img src="lanetechlogo.png" alt="Lane Tech's Logo" style="width:100px;height:100px;">
+ <header id="header">
 
+    <h1> 
+    <img src="lanetechlogo.png" alt="Lane Tech's Logo" style="width:100px;height:100px;">
+    Lane Tech Buses Tracker
+     <img src="cta-logo.png" alt="Lane Tech Logo" style="width:300px;height:100px;">
+     </h1>
+     
+    </header>
 
 
 <p>Click the Button to See the the Estimated Arrival times of the Western/Addison Buses</p>
@@ -44,7 +60,7 @@
   <div class="col-md-4" id="r49"><h2>Western</h2></div>
   <div class="col-md-4" id="rX49"><h2>Western Xpress</h2></div>
 </div>
-
+<b><hr></b>
 
 
 
@@ -79,8 +95,29 @@
               console.log(data);
               //$("body").append("<h1>Bus Routes</h1>");
              
-              $.each(data["bustime-response"]["prd"], function(i,v) {
-                  $("#r"+v.rt).append("Route #" + v.rt +", "+ v.rtdir + " to "+v.des +", " + v.stpid + ", "+v.prdctdn+" minutes to arrive"+"<br><hr>");
+              $.each(data["bustime-response"]["prd"], function(index, value) {
+                  if (value.prdctdn === "DUE") {
+                     $("#r"+ value.rt).append("Route #" 
+                                    + value.rt + ", " 
+                                    + value.rtdir + " to " 
+                                    + value.des + ": " 
+                                    + value.prdctdn + "<hr>");
+                  }
+                  else if (value.prdctdn === "DLY"){
+                      $("#r"+ value.rt).append("Route #" 
+                                    + value.rt + ", " 
+                                    + value.rtdir + " to " 
+                                    + value.des + ": " 
+                                    + "DELAYED" + "<hr>");
+                  }
+                  
+                  else{
+                    $("#r"+ value.rt).append("Route #" 
+                                    + value.rt + ", " 
+                                    + value.rtdir + " to " 
+                                    + value.des+ ": " 
+                                    + "<b>"+value.prdctdn  +"</b>"+ " minutes to arrival" + "<hr>");
+                  }
                 
               });
 
