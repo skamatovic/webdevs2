@@ -58,7 +58,7 @@
 <div class="row">
   <div class="col-md-4" id="r152"><h2>Addison</h2></div>
   <div class="col-md-4" id="r49"><h2>Western</h2></div>
-  <div class="col-md-4" id="rX49"><h2>Western Xpress</h2></div>
+  <div class="col-md-4" id="rX49"><h2>Western Express</h2></div>
 </div>
 <b><hr></b>
 
@@ -81,6 +81,9 @@
           var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
           
           $("#prdBtn").click(function(){
+              $("#r152").html("<h2>Addison</h2>");
+                $("#r49").html("<h2>Western</h2>");
+              $("#rX49").html("<h2>Western Express</h2>");
           $.ajax({
               url: apiPassThruUrl,
               dataType: "json",
