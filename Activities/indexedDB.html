@@ -1,109 +1,210 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <!-- Material Design Lite -->
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <!-- Material Design icon font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
-  <body>
-    <!-- Simple header with fixed tabs. -->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
-                mdl-layout--fixed-tabs">
-      <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-          <!-- Title -->
-          <span class="mdl-layout-title">IndexedDB App</span>
+    <head>
+        <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+        <link rel="manifest" href="./manifest.json">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <meta charset="UTF-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Ethan's 3 Screen App">
+        <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+        <meta name="msapplication-TileColor" content="#2F3BA2">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IndexedDB</title>
+        <style>
+          .page-content {padding: 25px;}
+        </style>
+    </head>
+    <body>
+        <!-- Simple header with fixed tabs. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+          <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+              <!-- Title -->
+              <span class="mdl-layout-title">Indexed DB</span>
+            </div>
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+              <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Display Employees</a>
+              <a href="#fixed-tab-2" class="mdl-layout__tab">Search Employees</a>
+              <a href="#fixed-tab-3" class="mdl-layout__tab">Add Employees</a>
+            </div>
+          </header>
+          <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">IndexedDB</span>
+          </div>
+          <main class="mdl-layout__content">
+            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+              <div class="page-content">
+                <h3>Chicago City Council Employee Data</h3>
+                <p>Use this page to display the current employees of the Chicago City Council.</p>
+                <button class="" id="showData">Show Data</button>
+                <br>
+                <div id="data"></div>
+              </div>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+              <div class="page-content">
+                <h3>Chicago City Council Employee Search</h3>
+                <p>With this page, you can search current City Council workers by name in all capital letters.</p>
+                <form>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="" type="text" id="input">
+                    <label class="" for="sample3">Enter name here</label>
+                  </div>
+                </form>
+                <button class="" id="search">Search</button>
+                <hr>
+                <div id="output"></div>
+              </div>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+              <div class="page-content">
+                <h3>Add Employees</h3>
+                <p>Here you can add employees to the city council database.</p>
+                <!-- Textfield with Floating Label -->
+                <form>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="" type="text" id="name">
+                    <label class="" for="sample3">Name</label>
+                  </div>
+                  <br>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="" type="text" id="titles">
+                    <label class="" for="sample3">Job Titles</label>
+                  </div>
+                  <br>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="" type="text" id="department">
+                    <label class="" for="sample3">Department</label>
+                  </div>
+                  <br>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="" type="text" id="annualSalary">
+                    <label class="" for="sample3">Annual Salary</label>
+                  </div>
+                </form><br>
+                <!-- Colored raised button -->
+                <button class="" id="addEmployee">
+                  Add Employee
+                </button>
+              </div>
+            </section>
+          </main>
         </div>
-        <!-- Tabs -->
-        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
-          <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
-          <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
-        </div>
-      </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
-      </div>
-      <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-          <div class="page-content"><form>
-         <div class="group">     
-         
-      <button type="button" class= "button" id="btnDisplay" >Display Records</button>
-     <div id="display"></div>
-     
-     </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-          <div class="page-content"><form action="#">
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" id="sample1">
-    <label class="mdl-textfield__label" for="sample1">Search Records</label>
-    
-  </div>
-</form>
-<button type="button" class= "button" id="btnSearch" >Display Records</button></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-          <div class="page-content"><!-- Your content goes here --></div>
-        </section>
-      </main>
-    </div>
-    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 <script>
   /* global $ */
-  $(function() {
-
-
-    var endpoint = "https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=CITY%20COUNCIL";
-
-
-
-    var db = new Dexie("employeeDB");
-    db.version(1).stores({
-      employees: '++id,name,department,titles,salary'
-    });
-    db.employees.count().then(function(count) {
-      console.log(count);
-      if (count == 0) {
-        console.log("hello")
-
-        $.getJSON(endpoint)
-          .done(function(data) {
-            console.log(data);
-
-
-            $.each(data, function(i, v) {
-              db.employees.add({
-                name: v.name,
-                title: v.job_titles,
-                salary: v.employee_annual_salary,
-                department: v.department
+    /* global $ global Dexie global navigator */
+            $(function() {
+              var db = new Dexie("employeeDB");
+              db.version(1).stores({
+                employees: '++id,name,title,department,annual_salary'
               });
-
-
-
+              $("#showData").click(function() {
+                db.employees.count().then(function(count) {
+                  console.log(count);
+                  if (count == 0) {
+                    $("#data").html("");
+                    $.getJSON("https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=CITY%20COUNCIL").done(function(data) {
+                      console.log(data);
+                      $.each(data, function(i,v) {
+                        db.employees.add({
+                          name: v.name,
+                          title: v.job_titles,
+                          department: v.department,
+                          annual_salary: v.employee_annual_salary
+                        });
+                        $("#data").append("<h4>"
+                        + v.name
+                        + '</h4><p>Title: '
+                        + v.title
+                        + '<br>Department: '
+                        + v.department
+                        + '<br>Annual Salary: '
+                        + v.annual_salary
+                        + '</p></div></div><hr>');
+                        });
+                    }).catch(function(error) {
+                      alert("An error occured: " + error);
+                    });
+                  } else {
+                    db.employees.each(function(employee) {
+                      $("#data").append("<h4>"
+                        + employee.name
+                        + '</h4><p>Title: '
+                        + employee.title
+                        + '<br>Department: '
+                        + employee.department
+                        + '<br>Annual Salary: '
+                        + employee.annual_salary
+                        + '</p></div></div><hr>');
+                    });
+                  }
+                });
+              });
+              $("#search").click(function() {
+                var query = $("#input").val();
+                console.log(query);
+                db.employees.count().then(function(count) {
+                  console.log(count);
+                  if (count == 0) {
+                    $("#output").html("");
+                    $.getJSON("https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=CITY%20COUNCIL").done(function(data) {
+                      console.log(data);
+                      $.each(data, function(i,v) {
+                        db.employees.add({
+                          name: v.name,
+                          title: v.job_titles,
+                          department: v.department,
+                          annual_salary: v.employee_annual_salary
+                        });
+                      });
+                      db.employees.where("name").startsWith(query).each(function(employee) {
+                        console.log(employee.name);
+                        $("#output").append("<h4>"
+                        + employee.name
+                        + '</h4><p>Title: '
+                        + employee.title
+                        + '<br>Department: '
+                        + employee.department
+                        + '<br>Annual Salary: '
+                        + employee.annual_salary
+                        + '</p></div></div><hr>');
+                      });
+                    }).catch(function(error) {
+                      alert("An error occured: " + error);
+                    });
+                  } else {
+                    $("#output").html("");
+                    db.employees.where("name").startsWith(query).each(function(employee) {
+                      $("#output").append("<h4>"
+                        + employee.name
+                        + '</h4><p>Title: '
+                        + employee.title
+                        + '<br>Department: '
+                        + employee.department
+                        + '<br>Annual Salary: '
+                        + employee.annual_salary
+                        + '</p></div></div><hr>');
+                    });
+                  }
+                });
+              });
+              $("#addEmployee").click(function() {
+                db.employees.put({name: $("#name").val(), title: $("#titles").val(), department: $("#department").val(), annual_salary: $("#annualSalary").val()});
+              });
+              // Register your service worker:
+              navigator.serviceWorker.register('./sw.js');
+              // Then later, request a one-off sync:
+              navigator.serviceWorker.ready.then(function(swRegistration) {
+                return swRegistration.sync.register('myFirstSync');
+              });
             });
-
-          });
-      }
-        $("#btnDisplay").click(function() {
-     
-        db.employees.each(function(employee) {
-          var html = "<br>" + "<strong>" + employee.name + "</strong>";
-          html += "<br>" + employee.department + "<br><br>";
-          $("#display").append(html);
-        });
-
-      }
-    );
-    
-
-    });
-  });
 </script>
   </body>
 </html>
