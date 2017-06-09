@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+     #r2d2{display:none;}
+     #harm{display:none}
+    
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Canvas Game</title>
+    <canvas id="myCanvas" width="300" height="300" style="border:5px solid black;"></canvas>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id='lose'></div>
+<img id="r2d2" width="50" height="72" src="r2d2.gif" alt="R2D2">
+    
+    <img id="harm" src="harm.png" alt='trooper' style='width:50px;height:50px'>
+    <img id="background" width="100" height="72" src="background.jpg" alt="space">
+
+    
+    <script>
+     window.onload = function() {
+      var livesRemaining = 3;
+      var score = 0;
+      var level = 1;
+      var paused = false;
+      var player = {x: 0, y: 0, costume: "", speed: 1};
+      var harm = {x: 0, y: 0, costume: "", speed: 1};
+      var benefit = {x: 0, y: 0, costume: ""};
+      /*
+      
+        main animation loop
+      
+      */
+      
+      
+     
+      var c = document.getElementById("myCanvas");
+      var ctx = c.getContext("2d");
+      var img = document.getElementById("r2d2");
+      var manX = 0
+      var manY = 100
+      ctx.drawImage(img, manX, manY, 50, 90);
+      
+      var background = document.getElementById("background");
+      var harmer = document.getElementById("harm");
+      harm.x = 250
+      harm.y = Math.floor(Math.random() * 300) 
+      
+      
+      
+      function animate() {
+
+        ctx.clearRect(0,0,c.width,c.height);
+        ctx.drawImage(background, 0, 0, 300, 300);
+        // update harm and benefit x coordinates
+        harm.x = harm.x - 1;
+        // draw background
+        
+        //  draw player
+        ctx.drawImage(img, manX, manY, 50, 50);
+        // draw harm 
+        ctx.drawImage(harmer, harm.x , harm.y, 25, 40)
+        // check for and handle edge condition
+        if (harm.x < 0 )
+        {
+          harm.x = c.width;
+        }
+        // check for and handle harm collision
+        if (Math.abs(harm.y - manY) <  20)
+        {
+          //$('#lose').append("You lose");
+        }
+        // draw benefit
+        
+        // check for and handle edge condition
+        
+        // check for benefit collision
+        
+        // draw text (lives and score)
+        
+        
+        
+        //  if the game has not been paused, 
+        if (!paused) {
+          requestAnimationFrame(animate);
+        }
+        
+      }
+      
+      
+      animate();
+      
+       document.addEventListener("keydown", move )
+        function move (e) {
+          //ctx.clearRect(0,0,c.width,c.height);
+         
+          if (e.keyCode == 40){
+            manY = manY + 3 
+          }
+          if (e.keyCode == 38){
+            manY = manY - 3 
+          }
+          
+        }
+      
+     
+      
+      
+      
+     };
+      
+    </script>
+    
+    
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Text Example</title>
+  <style>
+    canvas {
+      border: #333 10px solid;
+    }
+  </style>
+</head>
+ 
+<body>
+  <canvas id="myCanvas" width="550px" height="350px"></canvas>
+ 
+  <script>
+ var canvas = document.querySelector("#myCanvas");
+var ctx = canvas.getContext("2d");
+ var x = 100, y = 100;
+ 
+ 
+ function animate() {
+
+
+    
+      
+      
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        x += .1;
+        ctx.font = "bold 96px Helvetica, Arial, sans-serif";
+//context.fillText("Stevan", 40, 125);
+ctx.strokeText("Stevan", x, y);
+       
+        requestAnimationFrame(animate);
+      }
+      animate();       
+  </script>
+ 
+</body>
+ 
+</html>
